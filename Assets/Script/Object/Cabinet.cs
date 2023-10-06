@@ -6,10 +6,11 @@ public class Cabinet : MonoBehaviour
 {
     string[] objectnames;
     public int CabinetNum;
+    public GameObject CabinetBox;
+    public Animator animator;
+    public bool isUse = true;
 
     public BoxCollider boxcollider;
-    Animator animator;
-    public bool isOpen = false;
 
     private void Start()
     {
@@ -21,6 +22,5 @@ public class Cabinet : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool("isOpen", isOpen);
     }
 }

@@ -6,12 +6,13 @@ using UnityEngine.UIElements;
 
 public class Professor : MonoBehaviour
 {
-    // í”Œë ˆì´ì–´ì˜ ìŠ¤í¬ë¦½íŠ¸
+    // ÇÃ·¹ÀÌ¾î ½ºÅ©¸³Æ®
     public Player playerSC;
-    // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜
+    // ÇÃ·¹ÀÌ¾î Transform
     public Transform PlayerTransform;
+    private Vector3 targetPosition;
 
-    // ì›€ì§ì´ëŠ” ì†ë„
+    // ±³¼ö´Ô ÀÌµ¿ ¼Óµµ
     public float speed;
 
     public NavMeshAgent nmAgent;
@@ -24,15 +25,15 @@ public class Professor : MonoBehaviour
     private void Update()
     {
         nmAgent.SetDestination(PlayerTransform.position);
-
-        if (this.transform.position.y == PlayerTransform.position.y)
-        {
-            this.transform.LookAt(PlayerTransform);
-        }
+        targetPosition = new Vector3(PlayerTransform.position.x, transform.position.y, PlayerTransform.position.z);
+        this.transform.LookAt(targetPosition);
     }
 
     private void FixedUpdate()
     {
-        //transform.position = Vector3.MoveTowards(transform.position, PlayerTransform.position, Time.deltaTime * speed);
+        //float dist = Vector3.Distance(playerSC.transform.position, this.gameObject.transform.position);
+        //if (dist > 1.5f)
+        //    transform.position = Vector3.MoveTowards(transform.position,
+        //        PlayerTransform.position - new Vector3(-0.25f, 0.8f, 0), Time.deltaTime * speed);
     }
 }

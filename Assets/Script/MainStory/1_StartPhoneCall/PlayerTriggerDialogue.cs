@@ -21,21 +21,22 @@ public class PlayerTriggerDialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        string triggername = collision.gameObject.name;
-        DialNumList ActiveNum = (DialNumList)System.Enum.Parse(typeof(DialNumList), triggername.ToString());
-
-        switch (ActiveNum)
+        if (collision.CompareTag("Dialogue"))
         {
-            case DialNumList.StartPhoneCall:
-                DialRunner.StartDialogue("StartPhoneCall");
+            string triggername = collision.gameObject.name;
+            DialNumList ActiveNum = (DialNumList)System.Enum.Parse(typeof(DialNumList), triggername.ToString());
 
-                break;
-            case DialNumList.SecondFloorCorridor:
-                DialRunner.StartDialogue("SecondFloorCorridor");
-                break;
-        }
+            switch (ActiveNum)
+            {
+                case DialNumList.StartPhoneCall:
+                    DialRunner.StartDialogue("StartPhoneCall");
 
+                    break;
+                case DialNumList.SecondFloorCorridor:
+                    DialRunner.StartDialogue("SecondFloorCorridor");
+                    break;
+            }
         collision.gameObject.SetActive(false);
+        }
     }
-
 }

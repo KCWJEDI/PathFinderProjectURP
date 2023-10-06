@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +48,6 @@ public class Player : MonoBehaviour
 
     public Item item;
     public Cabinet cabinet;
-
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
@@ -208,15 +208,15 @@ public class Player : MonoBehaviour
                             }
                         }
                     }
-                    // 사물함 값 받기
                     else if (hit.transform.gameObject.CompareTag("Cabinet"))
                     {
                         cabinet = hit.transform.gameObject.GetComponent<Cabinet>();
-                        cabinet.isOpen = true;
-                        StartCoroutine(closeDoor());
-                        StartCoroutine(MoveCabinet(this.gameObject.transform ,hit.transform.gameObject));
+                        if (cabinet.isUse)
+                        {
+                            StartCoroutine(MoveCabinet(this.gameObject.transform, hit.transform.gameObject));
 
-                        isIn = !isIn;
+                            isIn = !isIn;
+                        }
                     }
                 }
             }
@@ -232,47 +232,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator closeDoor()
-    {
-        yield return null;
-        cabinet.isOpen = false;
-    }
-
-
     IEnumerator MoveCabinet(Transform thisObject, GameObject cabinetObject)
     {
         GameObject CabinetOBJ = cabinetObject.transform.parent.gameObject;
         playerSpotLight.SetActive(isIn);
-        animator.SetBool("isInCabinet", !isIn);
+        cabinet.animator.SetBool("isPlayerIn", !isIn);
         if (isIn == false)
         {
             currentTime = 0;
             Rb.constraints = RigidbodyConstraints.FreezePosition;
-            while(currentTime <= 0.5f)
+            cabinetObject.GetComponent<BoxCollider>().isTrigger = true;
+            while (currentTime <= 0.5f)
             {
                 yield return null;
                 currentTime += Time.deltaTime;
                 Mathf.Clamp01(currentTime);
 
                 this.transform.position = Vector3.Lerp(thisObject.position, CabinetOBJ.transform.position +
-                    new Vector3(0, this.transform.position.y, 0),MoveCurve.Evaluate(currentTime));
+                    new Vector3(0, this.transform.position.y, 0), MoveCurve.Evaluate(currentTime));
 
-                this.transform.rotation = Quaternion.Lerp(thisObject.rotation, CabinetOBJ.transform.rotation, MoveCurve.Evaluate(currentTime));
+                this.transform.rotation = Quaternion.Lerp(thisObject.rotation, 
+                    Quaternion.Euler(new Vector3(0, CabinetOBJ.transform.rotation.y, 0)), MoveCurve.Evaluate(currentTime));
             }
+            cabinetObject.GetComponent<BoxCollider>().isTrigger = false;
         }
         else
         {
             currentTime = 0;
             Rb.constraints = ~RigidbodyConstraints.FreezePosition;
+
+            cabinetObject.GetComponent<BoxCollider>().isTrigger = true;
             while (currentTime <= 0.5f)
             {
                 yield return null;
                 currentTime += Time.deltaTime * 0.5f;
                 Mathf.Clamp01(currentTime);
 
-                this.transform.position = Vector3.Lerp(thisObject.position, CabinetOBJ.transform.transform.position +
-                    CabinetOBJ.transform.forward * 2 + new Vector3(0, 0.75f, 0), MoveCurve.Evaluate(currentTime));
+                this.transform.position = Vector3.Lerp(thisObject.position, CabinetOBJ.transform.position +
+                    CabinetOBJ.transform.up * -2 + new Vector3(0, 0.75f, 0), MoveCurve.Evaluate(currentTime));
             }
+            cabinetObject.GetComponent<BoxCollider>().isTrigger = false;
+            cabinetObject.GetComponent<Cabinet>().isUse = false;
         }
         yield break;
     }
