@@ -27,13 +27,15 @@ public class Professor : MonoBehaviour
         nmAgent.SetDestination(PlayerTransform.position);
         targetPosition = new Vector3(PlayerTransform.position.x, transform.position.y, PlayerTransform.position.z);
         this.transform.LookAt(targetPosition);
-    }
 
-    private void FixedUpdate()
-    {
         //float dist = Vector3.Distance(playerSC.transform.position, this.gameObject.transform.position);
         //if (dist > 1.5f)
         //    transform.position = Vector3.MoveTowards(transform.position,
         //        PlayerTransform.position - new Vector3(-0.25f, 0.8f, 0), Time.deltaTime * speed);
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 }
