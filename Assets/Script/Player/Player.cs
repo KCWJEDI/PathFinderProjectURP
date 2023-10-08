@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     // 인벤토리 스크립트
     public InventoryObject inventoryObjectScript;
 
+    // 교수님 오브젝트
+    public AI professorAI;
+
     // 카메라
     public GameObject playerCamera;
     // 손전등
@@ -46,6 +49,8 @@ public class Player : MonoBehaviour
     // 플레이어와 오브젝트의 거리
     float dist;
 
+    public bool isCabinetIn = false;
+
     public Item item;
     public Cabinet cabinet;
     private void Start()
@@ -53,7 +58,6 @@ public class Player : MonoBehaviour
         Rb = GetComponent<Rigidbody>();
         inventoryObjectScript = FindObjectOfType<InventoryObject>();
         this.gameObject.transform.rotation = Quaternion.Euler(0, 180f, 0);
-
     }
 
     private void Update()
@@ -64,6 +68,11 @@ public class Player : MonoBehaviour
         EnterItem();
         // 아이템 사용
         UseItem();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            professorAI.AttakProfesser();
+        }
     }
 
     private void FixedUpdate()

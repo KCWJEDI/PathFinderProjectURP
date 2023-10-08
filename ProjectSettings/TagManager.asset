@@ -9,6 +9,7 @@ TagManager:
   - Cabinet
   - Item
   - Dialogue
+  - Dial1
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - PostProcess
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Professor
+  - Player
+  - World
   - 
   - 
   - 
