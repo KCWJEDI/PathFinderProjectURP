@@ -24,6 +24,7 @@ public class AI : MonoBehaviour
     [SerializeField] private int destPointIdx;
     [SerializeField] private GameObject auraEffect;
     [SerializeField] private Animator animator;
+    private static readonly int MotionCount = Animator.StringToHash("MotionCount");
 
     public enum State {
         START,
@@ -221,15 +222,10 @@ public class AI : MonoBehaviour
                         isplayingSound = true;
                     }
                     
-                    animator.SetFloat("MotionCount", 4);
+                    animator.SetFloat(MotionCount, 4);
                     
                     idleTime += Time.deltaTime;
                     nvAgent.destination = thisTr.position;
-
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-                    {
-                        animator.SetFloat("MotionCount", 0);
-                    }
 
                     if (idleTime >= 5)
                     {

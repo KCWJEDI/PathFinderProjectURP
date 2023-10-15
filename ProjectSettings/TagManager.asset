@@ -10,6 +10,7 @@ TagManager:
   - Item
   - Dialogue
   - Dial1
+  - Professor
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Professor
   - Player
   - World
-  - 
+  - Door
   - 
   - 
   - 

@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
 
     public Item item;
     public Cabinet cabinet;
+    private static readonly int IsMove = Animator.StringToHash("isMove");
+
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
@@ -108,11 +110,11 @@ public class Player : MonoBehaviour
 
         if (Mathf.Approximately(_moveDirX, 0) && Mathf.Approximately(_moveDirZ, 0))
         {
-            animator.SetBool("isMove", false);
+            animator.SetBool(IsMove, false);
         }
         else
         {
-            animator.SetBool("isMove", true);
+            animator.SetBool(IsMove, true);
         }
         animator.SetFloat("Xdir", _moveDirX);
         animator.SetFloat("Zdir", _moveDirZ);
