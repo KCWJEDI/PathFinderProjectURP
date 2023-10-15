@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     // 애니메이션 트리거 Bool
-    bool isIn = false;
+    public bool isCabinetIn = false;
 
     // 애니메이션 현재시간
     float currentTime = 0; 
@@ -49,7 +49,6 @@ public class Player : MonoBehaviour
     // 플레이어와 오브젝트의 거리
     float dist;
 
-    public bool isCabinetIn = false;
 
     public Item item;
     public Cabinet cabinet;
@@ -57,7 +56,6 @@ public class Player : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody>();
         inventoryObjectScript = FindObjectOfType<InventoryObject>();
-        this.gameObject.transform.rotation = Quaternion.Euler(0, 180f, 0);
     }
 
     private void Update()
@@ -224,7 +222,7 @@ public class Player : MonoBehaviour
                         {
                             StartCoroutine(MoveCabinet(this.gameObject.transform, hit.transform.gameObject));
 
-                            isIn = !isIn;
+                            isCabinetIn = !isCabinetIn;
                         }
                     }
                 }
@@ -244,9 +242,9 @@ public class Player : MonoBehaviour
     IEnumerator MoveCabinet(Transform thisObject, GameObject cabinetObject)
     {
         GameObject CabinetOBJ = cabinetObject.transform.parent.gameObject;
-        playerSpotLight.SetActive(isIn);
-        cabinet.animator.SetBool("isPlayerIn", !isIn);
-        if (isIn == false)
+        playerSpotLight.SetActive(isCabinetIn);
+        cabinet.animator.SetBool("isPlayerIn", !isCabinetIn);
+        if (isCabinetIn == false)
         {
             currentTime = 0;
             Rb.constraints = RigidbodyConstraints.FreezePosition;

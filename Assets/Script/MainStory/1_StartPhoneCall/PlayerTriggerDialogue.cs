@@ -11,13 +11,8 @@ public class PlayerTriggerDialogue : MonoBehaviour
 {
 
     public DialogueRunner DialRunner;
-    Player PlayerScript;
 
 
-    private void Start()
-    {
-        PlayerScript = FindObjectOfType<Player>();
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
