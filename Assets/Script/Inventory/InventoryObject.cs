@@ -1,7 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryObject : MonoBehaviour
 {
+    public static InventoryObject inventoryObject = null;
     private float scrollWheel;
     private int scrollInt = 0;
     public Slot SlotObject;
@@ -11,8 +13,6 @@ public class InventoryObject : MonoBehaviour
 
     public Slot[] slots;
 
-
-
     private void OnValidate()
     {
         slots = slotParent.GetComponentsInChildren<Slot>();
@@ -21,10 +21,36 @@ public class InventoryObject : MonoBehaviour
 
     private void Start()
     {
+        if (inventoryObject != null)
+            return;
 
+        inventoryObject = this;
+    }
+    public bool PlayerHaveaKeyA()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].ObjectName == "°­ÀÇ½Ç¿­¼è")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool PlayerHaveaKeyB()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].ObjectName == "Åë·Î¿­¼è")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    
+
+
     private void Update()
     {
         ScrollWheelInventory();
@@ -53,7 +79,6 @@ public class InventoryObject : MonoBehaviour
         SlotObject.Outline.enabled = true;
         SlotObject.SlotItem.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.7f, 0.7f, 1);
     }
-
 
 
 }

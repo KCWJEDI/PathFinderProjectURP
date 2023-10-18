@@ -49,6 +49,8 @@ public class Slot : MonoBehaviour
         SlotItemImage = null;
         SlotItem.GetComponent<Image>().sprite = DefaultSlotItemImage;
     }
+
+    
 }
 
 
