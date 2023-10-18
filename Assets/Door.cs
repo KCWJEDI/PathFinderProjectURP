@@ -39,8 +39,11 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        originRotationR = doorL.transform.rotation.eulerAngles;
-        originRotationL = doorR.transform.rotation.eulerAngles;
+        originRotationL = doorL.transform.rotation.eulerAngles;
+        if (type == DoorType.Dual)
+        {
+            originRotationR = doorR.transform.rotation.eulerAngles;
+        }
     }
 
     private bool IsPlayerFront(Collider other)
