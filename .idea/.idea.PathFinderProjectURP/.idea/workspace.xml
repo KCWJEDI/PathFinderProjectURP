@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1e49c6d-6711-4935-abc2-7ac257e7be17" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PathFinderProjectURP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PathFinderProjectURP/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Door.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Door.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorAh.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorAh.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorAv.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorAv.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBh.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBh.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBh2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBh2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBv.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBv.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBv2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Door/DoorBv2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Inventory/InventoryObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Inventory/InventoryObject.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1697361832225</updated>
       <workItem from="1697361837215" duration="5320000" />
-      <workItem from="1697635386013" duration="5325000" />
+      <workItem from="1697635386013" duration="5945000" />
     </task>
     <servers />
   </component>
