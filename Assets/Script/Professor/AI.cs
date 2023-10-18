@@ -24,6 +24,7 @@ public class AI : MonoBehaviour
     [SerializeField] private int destPointIdx;
     [SerializeField] private GameObject auraEffect;
     [SerializeField] private Animator animator;
+    [SerializeField]private bool isplayingSound = true;
     private static readonly int MotionCount = Animator.StringToHash("MotionCount");
 
     public enum State {
@@ -53,7 +54,6 @@ public class AI : MonoBehaviour
 
         auraEffect = this.gameObject.transform.GetChild(0).GetChild(2).gameObject;
 
-        StartCoroutine(this.Routine());
     }
     private void Update()
     {
@@ -64,8 +64,7 @@ public class AI : MonoBehaviour
                 AttakProfesser();
             }
         }
-
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        Routine();
     }
 
 
@@ -98,7 +97,6 @@ public class AI : MonoBehaviour
         return false;
     }
 
-    //��ų ���� ȣ��
     public void AttakProfesser()
     {
         if (currentState == State.CHASE && Vector3.Distance(playerTr.position, thisTr.position) <= 4)
@@ -107,153 +105,145 @@ public class AI : MonoBehaviour
             {
                 idleTime = 0;
                 currentState = State.DAMAGED;
-                Debug.Log("DAMAGED");
             }
             else
             {
-                Debug.Log("ANGER");
                 currentState = State.ANGER;
             }
         }
     }
 
-    IEnumerator Routine()
+    public void Routine()
     {
-        bool isplayingSound = false;
-        while(true)
+        switch (currentState)
         {
-            yield return null;
-
-            switch (currentState)
-            {
-                case State.START:
-                    {
-                        animator.SetFloat("MotionCount", 1);
-                        nvAgent.destination = thisTr.position;
-                        currentState = State.RETURN;
-                    }
-                    break;
-                case State.IDLE:
-                    {
-                        animator.SetFloat("MotionCount", 0);
-                        nvAgent.destination = thisTr.position;
-                        nvAgent.speed = speed;
-                        idleTime += Time.deltaTime;
-                        if (idleTime >= 5)
-                        {
-                            if (IsPlayerAround())
-                                currentState = State.CHASE;
-                            else
-                                currentState = State.RETURN;
-                            idleTime = 0;
-                        }
-                    }
-                    break;
-                case State.PATROL:
-                    {
-                        StartCoroutine(RoopSpeech());
-
-                        animator.SetFloat("MotionCount", 1);
-                        if (lastPointIdx == points.Length - 1)
-                            destPointIdx = 0;
-                        else
-                            destPointIdx = lastPointIdx + 1;
-
-                        nvAgent.destination = points[destPointIdx].position;
-
-                        if (Vector3.Distance(thisTr.position, points[destPointIdx].position) < 0.5)
-                        {
-                            lastPointIdx = destPointIdx;
-                        }
-
-                        if (IsPlayerAround())
-                            currentState = State.CHASE;
-                    }
-                    break;
-                case State.CHASE:
-                    audio.Stop();
-                    animator.SetFloat("MotionCount", 1);
-                    nvAgent.destination = playerTr.position;
-                    nvAgent.speed = speed;
-                    if (IsPlayerAttackable())
-                    {
-                        currentState = State.END;
-                        //GameOver
-                    }
-                    if (IsPlayerAround() == false)
-                        currentState = State.RETURN;
-                    if (playerTr.GetComponent<Player>().isCabinetIn)
-                        currentState = State.IDLE;
-                    break;
-                case State.ANGER:
-                    if (!isplayingSound)
-                    {
-                        audio.PlayOneShot(sound.FailSkillAudio[0]);
-                        isplayingSound = true;
-                    }
-                    animator.SetFloat("MotionCount", 2);
-                    nvAgent.destination = playerTr.position;
-                    nvAgent.speed = angerSpeed;
-                    auraEffect.SetActive(true);
-
-                    if (IsPlayerAttackable())
-                    {
-                        currentState = State.END;
-                        isplayingSound = false;
-                        //GameOver
-                    }
-                    if (IsPlayerAround() == false)
-                    {
-                        currentState = State.RETURN;
-                        isplayingSound = false;
-                        auraEffect.SetActive(false);
-                    }
-                    if (playerTr.GetComponent<Player>().isCabinetIn)
-                    {
-                        currentState = State.IDLE;
-                        isplayingSound = false;
-                        auraEffect.SetActive(false);
-                    }
-                    break;
-                case State.DAMAGED:
-                    if (!isplayingSound)
-                    {
-                        audio.PlayOneShot(sound.SuccessSkillAudio[0]);
-                        isplayingSound = true;
-                    }
-                    
-                    animator.SetFloat(MotionCount, 4);
-                    
-                    idleTime += Time.deltaTime;
+            case State.START:
+                {
+                    animator.SetInteger("MotionCount", 1);
                     nvAgent.destination = thisTr.position;
-
+                    currentState = State.RETURN;
+                }
+                break;
+            case State.IDLE:
+                {
+                    animator.SetInteger("MotionCount", 0);
+                    nvAgent.destination = thisTr.position;
+                    nvAgent.speed = speed;
+                    idleTime += Time.deltaTime;
                     if (idleTime >= 5)
                     {
                         if (IsPlayerAround())
-                        {
                             currentState = State.CHASE;
-                            isplayingSound = false;
-                        }
                         else
-                        {
                             currentState = State.RETURN;
-                            isplayingSound = false;
-                        }
                         idleTime = 0;
                     }
-                    break;
-                case State.RETURN:
+                }
+                break;
+            case State.PATROL:
+                {
+                    StartCoroutine(RoopSpeech());
+
+                    animator.SetInteger("MotionCount", 1);
+                    if (lastPointIdx == points.Length - 1)
+                        destPointIdx = 0;
+                    else
+                        destPointIdx = lastPointIdx + 1;
+
+                    nvAgent.destination = points[destPointIdx].position;
+
+                    if (Vector3.Distance(thisTr.position, points[destPointIdx].position) < 0.5)
                     {
-                        nvAgent.speed = speed;
-                        int lastPointIdx = FindNearPointIdx();
-                        currentState = State.PATROL;
+                        lastPointIdx = destPointIdx;
                     }
-                    break;
-                case State.END:
-                    animator.SetFloat("MotionCount", 0);
-                    nvAgent.destination = thisTr.position;
-                    break;
-            }
+
+                    if (IsPlayerAround())
+                        currentState = State.CHASE;
+                }
+                break;
+            case State.CHASE:
+                audio.Stop();
+                animator.SetInteger("MotionCount", 1);
+                nvAgent.destination = playerTr.position;
+                nvAgent.speed = speed;
+                if (IsPlayerAttackable())
+                {
+                    currentState = State.END;
+                    //GameOver
+                }
+                if (IsPlayerAround() == false)
+                    currentState = State.RETURN;
+                if (playerTr.GetComponent<Player>().isCabinetIn)
+                    currentState = State.IDLE;
+                break;
+            case State.ANGER:
+                if (!isplayingSound)
+                {
+                    audio.PlayOneShot(sound.FailSkillAudio[0]);
+                    isplayingSound = true;
+                }
+                animator.SetInteger("MotionCount", 2);
+                nvAgent.destination = playerTr.position;
+                nvAgent.speed = angerSpeed;
+                auraEffect.SetActive(true);
+
+                if (IsPlayerAttackable())
+                {
+                    currentState = State.END;
+                    isplayingSound = false;
+                    //GameOver
+                }
+                if (IsPlayerAround() == false)
+                {
+                    currentState = State.RETURN;
+                    isplayingSound = false;
+                    auraEffect.SetActive(false);
+                }
+                if (playerTr.GetComponent<Player>().isCabinetIn)
+                {
+                    currentState = State.IDLE;
+                    isplayingSound = false;
+                    auraEffect.SetActive(false);
+                }
+                break;
+            case State.DAMAGED:
+                if (!isplayingSound)
+                {
+                    audio.PlayOneShot(sound.SuccessSkillAudio[0]);
+                    isplayingSound = true;
+                }
+                    
+                animator.SetInteger("MotionCount", 4);
+                    
+                idleTime += Time.deltaTime;
+                nvAgent.destination = thisTr.position;
+
+                if (idleTime >= 5)
+                {
+                    if (IsPlayerAround())
+                    {
+                        currentState = State.CHASE;
+                        isplayingSound = false;
+                    }
+                    else
+                    {
+                        currentState = State.RETURN;
+                        isplayingSound = false;
+                    }
+                    idleTime = 0;
+                }
+                break;
+            case State.RETURN:
+                {
+                    nvAgent.speed = speed;
+                    int lastPointIdx = FindNearPointIdx();
+                    currentState = State.PATROL;
+                }
+                break;
+            case State.END:
+                animator.SetInteger("MotionCount", 0);
+                nvAgent.destination = thisTr.position;
+                break;
         }
     }
 
