@@ -56,7 +56,7 @@ public class Door : MonoBehaviour
     
     private void OpenDoorL(Collider other)
     {
-        if (IsPlayerFront(other))
+        if (IsPlayerFront(other) || type == DoorType.Mono)
             doorL.transform.DORotate(originRotationL + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
         else
             doorL.transform.DORotate(originRotationL + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
