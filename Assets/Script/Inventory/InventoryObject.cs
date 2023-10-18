@@ -26,27 +26,39 @@ public class InventoryObject : MonoBehaviour
 
         inventoryObject = this;
     }
-    public bool PlayerHaveaKeyA()
+    public bool PlayerHaveKey(DoorLockType lockType)
     {
-        for (int i = 0; i < slots.Length; i++)
+        switch (lockType)
         {
-            if (slots[i].ObjectName == "°­ÀÇ½Ç¿­¼è")
+            case DoorLockType.ClassDoor:
             {
-                return true;
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if (slots[i].ObjectName == "ì—´ì‡ ")
+                    {
+                        //ì—´ì‡  ì œê±°í•˜ê¸°
+                        return true;
+                    }
+                }
+                return false;
             }
-        }
-        return false;
-    }
-    public bool PlayerHaveaKeyB()
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].ObjectName == "Åë·Î¿­¼è")
+            case DoorLockType.PathWayDoor:
             {
-                return true;
+                foreach (var t in slots)
+                {
+                    if (t.ObjectName == "í†µë¡œì—´ì‡ ")
+                    {
+                        //ì—´ì‡  ì œê±°í•˜ê¸°
+                        return true;
+                    }
+                }
+
+                return false;
             }
+            case DoorLockType.None:
+            default:
+                return true;
         }
-        return false;
     }
 
 

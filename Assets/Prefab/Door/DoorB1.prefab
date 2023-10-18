@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 498900451124342005}
   - component: {fileID: 498900451124342006}
   m_Layer: 0
-  m_Name: DoorBh
+  m_Name: DoorB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,9 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a159ea9ef6e15a44e9d2a3bdcb2abf8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
+  lockType: 0
   doorL: {fileID: 498900451079600450}
   doorR: {fileID: 0}
+  originRotationR: {x: 0, y: 0, z: 0}
+  originRotationL: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!65 &498900451124342006
 BoxCollider:
   m_ObjectHideFlags: 0

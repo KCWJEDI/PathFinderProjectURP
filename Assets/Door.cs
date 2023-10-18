@@ -3,148 +3,111 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Callbacks;
 
 public enum DoorType
 {
-    Ah,
-    Av,
-    Bh,
-    Bv
+    Dual,
+    Mono
+}
+
+public enum Way
+{
+    U,
+    D,
+    R,
+    L
+}
+
+public enum DoorLockType
+{
+    None,
+    ClassDoor,
+    PathWayDoor
 }
 
 public class Door : MonoBehaviour
 {
     [SerializeField] private DoorType type;
+    [SerializeField] private DoorLockType lockType;
+    [SerializeField] private Way wayType;
     [SerializeField] private GameObject doorL;
     [SerializeField] private GameObject doorR;
+    [SerializeField] private Vector3 originRotationR;
+    [SerializeField] private Vector3 originRotationL;
+    [SerializeField] private bool isOpen = false;
 
-    private void DoorTypeAh(Collider other, bool op = false)
+    private void Start()
     {
-        if (op)
-        {
-            doorL.transform.DORotate(new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
-            doorR.transform.DORotate(new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
-        }
-        else
-        {
-            if (other.transform.position.z < this.transform.position.z)
-            {
-                doorL.transform.DORotate(new Vector3(-90, 0, -90), 0.7f, RotateMode.Fast);
-                doorR.transform.DORotate(new Vector3(-90, 0, 90), 0.7f, RotateMode.Fast);
-            }
-            else
-            {
-                doorL.transform.DORotate(new Vector3(-90, 0, 90), 0.7f, RotateMode.Fast);
-                doorR.transform.DORotate(new Vector3(-90, 0, -90), 0.7f, RotateMode.Fast);
-            }
-        }
+        originRotationR = doorL.transform.rotation.eulerAngles;
+        originRotationL = doorR.transform.rotation.eulerAngles;
+    }
+
+    private bool IsPlayerFront(Collider other)
+    {
+        var playerPos = other.transform.position;
+        var doorPos = transform.position;
+        return (wayType == Way.U && playerPos.z > doorPos.z) || (wayType == Way.D && playerPos.z < doorPos.z) ||
+               (wayType == Way.L && playerPos.x < doorPos.x) || (wayType == Way.R && playerPos.x > doorPos.x);
     }
     
-    private void DoorTypeAv(Collider other, bool op = false)
+    private void OpenDoorL(Collider other)
     {
-        if (op)
-        {
-            doorL.transform.DORotate(new Vector3(-90, 0, 90), 0.7f, RotateMode.Fast);
-            doorR.transform.DORotate(new Vector3(-90, 0, 90), 0.7f, RotateMode.Fast);
-        }
+        if (IsPlayerFront(other))
+            doorL.transform.DORotate(originRotationL + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
         else
-        {
-            if (other.transform.position.x < this.transform.position.x)
-            {
-                doorL.transform.DORotate(new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
-                doorR.transform.DORotate(new Vector3(-90, 0, 180), 0.7f, RotateMode.Fast);
-            }
-            else
-            {
-                doorL.transform.DORotate(new Vector3(-90, 0, 180), 0.7f, RotateMode.Fast);
-                doorR.transform.DORotate(new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
-            }
-        }
+            doorL.transform.DORotate(originRotationL + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
     }
-
-    private void DoorTypeBh(Collider other, bool op = false)
+    
+    private void CloseDoorL()
     {
-        doorL.transform.DORotate(op ? new Vector3(-90, 0, -90) : new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
+        doorL.transform.DORotate(originRotationL, 0.5f, RotateMode.Fast);
     }
-
-    private void DoorTypeBv(Collider other, bool op = false)
+    
+    private void OpenDoorR(Collider other)
     {
-        doorL.transform.DORotate(op ? new Vector3(-90, 0, 90) : new Vector3(-90, 0, 0), 0.7f, RotateMode.Fast);
+        if (IsPlayerFront(other))
+            doorR.transform.DORotate(originRotationL + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
+        else
+            doorR.transform.DORotate(originRotationL + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
     }
+    
+    private void CloseDoorR()
+    {
+        doorR.transform.DORotate(originRotationL, 0.5f, RotateMode.Fast);
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            switch (type)
+            if (!isOpen && InventoryObject.inventoryObject.PlayerHaveKey(lockType))
+                isOpen = true;
+            if (isOpen)
             {
-                case DoorType.Ah:
-                    DoorTypeAh(other);
-                    break;
-                case DoorType.Av:
-                    DoorTypeAv(other);
-                    break;
-                case DoorType.Bh:
-                    DoorTypeBh(other);
-                    break;
-                case DoorType.Bv:
-                    DoorTypeBv(other);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                if (type == DoorType.Dual)
+                    OpenDoorR(other);
+                OpenDoorL(other);
             }
         }
-
-        if (other.CompareTag("Professor"))
-        {
-            switch (type)
-            {
-                case DoorType.Ah:
-                    DoorTypeAh(other);
-                    break;
-                case DoorType.Av:
-                    DoorTypeAv(other);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        if (!other.CompareTag("Professor")) return;
+        if (!other.CompareTag("Professor")) return;
+        if (type == DoorType.Dual)
+            OpenDoorR(other);
+        OpenDoorL(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            switch (type)
-            {
-                case DoorType.Ah:
-                    DoorTypeAh(other, true);
-                    break;
-                case DoorType.Av:
-                    DoorTypeAv(other, true);
-                    break;
-                case DoorType.Bh:
-                    DoorTypeBh(other, true);
-                    break;
-                case DoorType.Bv:
-                    DoorTypeBv(other, true);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            if (type == DoorType.Dual)
+                CloseDoorR();
+            CloseDoorL();
         }
-        if (other.CompareTag("Professor"))
-        {
-            switch (type)
-            {
-                case DoorType.Ah:
-                    DoorTypeAh(other, true);
-                    break;
-                case DoorType.Av:
-                    DoorTypeAv(other, true);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        if (!other.CompareTag("Professor")) return;
+        if (type == DoorType.Dual)
+            CloseDoorR();
+        CloseDoorL();
     }
 }
