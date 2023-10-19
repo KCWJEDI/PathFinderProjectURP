@@ -86,13 +86,8 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!isOpen)
-            {
-                bool test = InventoryObject.inventoryObject.PlayerHaveKey(lockType);
-                Debug.Log(test);
-                if (test)
+            if (!isOpen && InventoryObject.inventoryObject.PlayerHaveKey(lockType))
                     isOpen = true;
-            }
             if (isOpen)
             {
                 if (type == DoorType.Dual)
@@ -100,7 +95,6 @@ public class Door : MonoBehaviour
                 OpenDoorL(other);
             }
         }
-        if (!other.CompareTag("Professor")) return;
         if (!other.CompareTag("Professor")) return;
         if (type == DoorType.Dual)
             OpenDoorR(other);
