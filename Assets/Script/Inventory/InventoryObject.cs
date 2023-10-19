@@ -38,7 +38,8 @@ public class InventoryObject : MonoBehaviour
                     Debug.Log(slots[i].KeyType);
                     if (slots[i].KeyType == "ClassKey")
                     {
-                        //열쇠 제거하기
+                        // 열쇠 제거하기
+                        slots[i].Reset();
                         return true;
                     }
                 }
@@ -51,6 +52,7 @@ public class InventoryObject : MonoBehaviour
                     if (t.KeyType == "PathKey")
                     {
                         //열쇠 제거하기
+                        t.Reset();
                         return true;
                     }
                 }

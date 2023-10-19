@@ -53,6 +53,7 @@ public class Slot : MonoBehaviour
             ObjectName = null;
             item = null;
             SlotItemImage = null;
+            KeyType = "";
             SlotItem.GetComponent<Image>().sprite = DefaultSlotItemImage;
         }
     }

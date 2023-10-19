@@ -529,11 +529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7def705913da5449c4661ccdf7eb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialRunner: {fileID: 1714018110}
   FirstFloorDoorCloseDialogue: {fileID: 1585102815}
+  LockedCCRC: {fileID: 1646097737}
   ProfessorObject: {fileID: 1568811293}
   USBObject: {fileID: 4588882606229742247}
-  LockedCCRC: {fileID: 1646097737}
   doors:
   - {fileID: 6523496894961265740}
   - {fileID: 6523496893682072476}
@@ -556,6 +555,7 @@ MonoBehaviour:
     type: 3}
   PathWayKeyPrefab: {fileID: 8145503799452050811, guid: 10fb4db0979572745ab1808fb2d294ee,
     type: 3}
+  DialRunner: {fileID: 1714018110}
 --- !u!136 &203751076
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5895,7 +5895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646097737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22, y: 6, z: 20.5}
+  m_LocalPosition: {x: -15.17, y: 8.804, z: 20.5}
   m_LocalScale: {x: 1, y: 1, z: 2.9965}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20352,7 +20352,6 @@ GameObject:
   - component: {fileID: 4302506123892931218}
   - component: {fileID: 9177882375311525220}
   - component: {fileID: 8864230696879889161}
-  - component: {fileID: 9177882375311525221}
   m_Layer: 0
   m_Name: 1st_left_small_object
   m_TagString: Untagged
@@ -33995,8 +33994,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemName: USB
-  KeyName: 
-  ItemImage: {fileID: 0}
+  KeyName: Usb
+  ItemImage: {fileID: 21300000, guid: b9675a875639f71458bfe4dc849b1d87, type: 3}
 --- !u!114 &4588882606229742251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45147,20 +45146,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240017180469585532}
-  m_Mesh: {fileID: 8268126201525275873, guid: a1749be782ec1e44fa41376c1231a4bf, type: 3}
---- !u!64 &9177882375311525221
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240017180469585532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 8268126201525275873, guid: a1749be782ec1e44fa41376c1231a4bf, type: 3}
 --- !u!33 &9179658040418335330
 MeshFilter:

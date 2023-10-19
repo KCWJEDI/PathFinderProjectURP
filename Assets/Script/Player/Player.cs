@@ -189,8 +189,9 @@ public class Player : MonoBehaviour
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 4, ~(1 << LayerMask.NameToLayer("Player"))))
             {
+                Debug.Log(hit.transform.gameObject.tag);
                 dist = Vector3.Distance(this.gameObject.transform.position, hit.transform.position);
                 if (dist < 4)
                 {

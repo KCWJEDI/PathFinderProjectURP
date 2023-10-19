@@ -9,21 +9,32 @@ enum DialNumList
     SecondFloorCorridor,
     FoundUSB,
     SoundProfessor,
-    FirstFloorDoorClose
+    FirstFloorDoorClose,
+    LockedCCRC
 
 };
 
 public class PlayerTriggerDialogue : MonoBehaviour
 {
-    public DialogueRunner DialRunner;
+    [Header ("CanvasList")]
     public GameObject FirstFloorDoorCloseDialogue;
+    public GameObject LockedCCRC;
+    [Space (0.5f)]
+
+    [Header ("Objects")]
     public GameObject ProfessorObject;
     public GameObject USBObject;
-    public GameObject LockedCCRC;
     public Door[] doors;
     public Transform[] keyPoints;
+    [Space (0.5f)]
+
+    [Header ("Prefab")]
     public GameObject classKeyPrefab;
     public GameObject PathWayKeyPrefab;
+    [Space (0.5f)]
+
+    [Header ("Manager")]
+    public DialogueRunner DialRunner;
     
     void KeyRandomCreate()
     {
@@ -82,11 +93,17 @@ public class PlayerTriggerDialogue : MonoBehaviour
                     USBObject.SetActive(true);
                     LockedCCRC.SetActive(true);
                     foreach (Door dor in doors)
+                    {
                         dor.lockType = DoorLockType.PathWayDoor;
+                        dor.isOpen = false;
+                    }
                     KeyRandomCreate();
                     break;
+                case DialNumList.LockedCCRC:
+                    DialRunner.StartDialogue("LockedCCRC");
+                    break;
             }
-        collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
     }
 }
