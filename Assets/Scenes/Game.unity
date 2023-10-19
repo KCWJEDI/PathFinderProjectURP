@@ -523,6 +523,7 @@ MonoBehaviour:
   FirstFloorDoorCloseDialogue: {fileID: 1585102815}
   ProfessorObject: {fileID: 1568811293}
   USBObject: {fileID: 4588882606229742247}
+  LockedCCRC: {fileID: 1646097737}
   doors:
   - {fileID: 6523496894961265740}
   - {fileID: 6523496893682072476}
@@ -5710,7 +5711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1585102816
 Transform:
   m_ObjectHideFlags: 0
@@ -5869,7 +5870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1646097738
 Transform:
   m_ObjectHideFlags: 0
@@ -33991,7 +33992,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4588882606229742247}
   m_LocalRotation: {x: -0.2161593, y: 0.6732572, z: 0.6732572, w: 0.2161593}
-  m_LocalPosition: {x: 0, y: 0, z: -7.905}
+  m_LocalPosition: {x: 0, y: 0, z: -8.066}
   m_LocalScale: {x: 0.035, y: 0.035, z: 0.035}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34001,7 +34002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 144.4}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -36.678, y: 8.529}
+  m_AnchoredPosition: {x: -36.711, y: 8.529}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4623667100416275365

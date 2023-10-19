@@ -19,6 +19,7 @@ public class PlayerTriggerDialogue : MonoBehaviour
     public GameObject FirstFloorDoorCloseDialogue;
     public GameObject ProfessorObject;
     public GameObject USBObject;
+    public GameObject LockedCCRC;
     public Door[] doors;
     public Transform[] keyPoints;
     public GameObject classKeyPrefab;
@@ -79,6 +80,7 @@ public class PlayerTriggerDialogue : MonoBehaviour
                 case DialNumList.FirstFloorDoorClose:
                     DialRunner.StartDialogue("FirstFloorDoorClose");
                     USBObject.SetActive(true);
+                    LockedCCRC.SetActive(true);
                     foreach (Door dor in doors)
                         dor.lockType = DoorLockType.PathWayDoor;
                     KeyRandomCreate();

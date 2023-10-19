@@ -10,7 +10,9 @@ public class Usb : MonoBehaviour
     private void OnEnable()
     {
         auraEffectObject = this.transform.GetChild(0).gameObject;
+        // usb활성화 및 코루틴 시작
         StartCoroutine(twentySecWait());
+
     }
     IEnumerator twentySecWait()
     {
