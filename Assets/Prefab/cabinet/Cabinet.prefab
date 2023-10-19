@@ -137,6 +137,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   isUse: 1
   boxcollider: {fileID: 0}
+  SparkEffect: {fileID: 2083722696460984242, guid: bb95ed88696270d4fa8069c1cc0faf48,
+    type: 3}
 --- !u!1 &1777881164874964107
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,11 +252,11 @@ Transform:
   m_Children:
   - {fileID: 2890799140139897020}
   - {fileID: 505452732158387991}
-  - {fileID: 756279981721691769}
+  - {fileID: 2409365160237706794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!1001 &1626932385272265160
+--- !u!1001 &4432973707309379995
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -284,7 +286,7 @@ PrefabInstance:
     - target: {fileID: 2083722696460984241, guid: bb95ed88696270d4fa8069c1cc0faf48,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.447321
+      value: -11.726852
       objectReference: {fileID: 0}
     - target: {fileID: 2083722696460984241, guid: bb95ed88696270d4fa8069c1cc0faf48,
         type: 3}
@@ -294,7 +296,7 @@ PrefabInstance:
     - target: {fileID: 2083722696460984241, guid: bb95ed88696270d4fa8069c1cc0faf48,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.72081256
+      value: 0.2844878
       objectReference: {fileID: 0}
     - target: {fileID: 2083722696460984241, guid: bb95ed88696270d4fa8069c1cc0faf48,
         type: 3}
@@ -336,11 +338,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: spark1
       objectReference: {fileID: 0}
-    - target: {fileID: 2083722696460984242, guid: bb95ed88696270d4fa8069c1cc0faf48,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2083722696460984243, guid: bb95ed88696270d4fa8069c1cc0faf48,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -348,9 +345,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb95ed88696270d4fa8069c1cc0faf48, type: 3}
---- !u!4 &756279981721691769 stripped
+--- !u!4 &2409365160237706794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2083722696460984241, guid: bb95ed88696270d4fa8069c1cc0faf48,
     type: 3}
-  m_PrefabInstance: {fileID: 1626932385272265160}
+  m_PrefabInstance: {fileID: 4432973707309379995}
   m_PrefabAsset: {fileID: 0}

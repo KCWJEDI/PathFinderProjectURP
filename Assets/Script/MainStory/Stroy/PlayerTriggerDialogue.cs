@@ -78,7 +78,7 @@ public class PlayerTriggerDialogue : MonoBehaviour
                     break;
                 case DialNumList.FirstFloorDoorClose:
                     DialRunner.StartDialogue("FirstFloorDoorClose");
-                    //USBObject.SetActive(true);
+                    USBObject.SetActive(true);
                     foreach (Door dor in doors)
                         dor.lockType = DoorLockType.PathWayDoor;
                     KeyRandomCreate();

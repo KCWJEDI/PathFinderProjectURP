@@ -194,10 +194,12 @@ public class Player : MonoBehaviour
                 dist = Vector3.Distance(this.gameObject.transform.position, hit.transform.position);
                 if (dist < 4)
                 {
-                    if (hit.transform.gameObject.CompareTag("Item"))
+                    if (hit.transform.gameObject.CompareTag("ITEM"))
                     {
+                        Debug.Log("아이템 클릭 성공");
                         // 클릭 오브젝트의 아이템 스크립트
                         item = hit.transform.gameObject.GetComponent<Item>();
+                        Debug.Log(item);
                         for (int i = 0; i < inventoryObject.slots.Length; i++)
                         {
                             if (inventoryObject.slots[i].active == false)
