@@ -22,12 +22,15 @@ public class Slot : MonoBehaviour
     // 슬롯 내부의 아이템 UI의 이미지
     public Sprite SlotItemImage;
 
+    [SerializeField] public string KeyType;
+    
     [SerializeField]
     private Sprite DefaultSlotItemImage;
 
     private void Start()
     {
         SlotItem = this.gameObject.transform.GetChild(0).gameObject;
+        KeyType = "";
     }
 
     private void Update()
@@ -35,6 +38,7 @@ public class Slot : MonoBehaviour
         if (item != null)
         {
             ObjectName = item.name;
+            KeyType = item.KeyName;
             SlotItemImage = item.ItemImage;
             SlotItem.GetComponent<Image>().sprite = SlotItemImage;
         }

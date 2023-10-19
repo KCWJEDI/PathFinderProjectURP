@@ -23,8 +23,9 @@ public class InventoryObject : MonoBehaviour
     {
         if (inventoryObject != null)
             return;
-
+        
         inventoryObject = this;
+        slots[0].active = true;
     }
     public bool PlayerHaveKey(DoorLockType lockType)
     {
@@ -34,7 +35,8 @@ public class InventoryObject : MonoBehaviour
             {
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    if (slots[i].ObjectName == "ClassKey")
+                    Debug.Log(slots[i].KeyType);
+                    if (slots[i].KeyType == "ClassKey")
                     {
                         //열쇠 제거하기
                         return true;
@@ -46,7 +48,7 @@ public class InventoryObject : MonoBehaviour
             {
                 foreach (var t in slots)
                 {
-                    if (t.ObjectName == "PathKey")
+                    if (t.KeyType == "PathKey")
                     {
                         //열쇠 제거하기
                         return true;

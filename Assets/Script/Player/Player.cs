@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
     private Rigidbody Rb;
 
     // 인벤토리 스크립트
-    public InventoryObject inventoryObjectScript;
+    [FormerlySerializedAs("inventoryObjectScript")] public InventoryObject inventoryObject;
 
     // 교수님 오브젝트
     public AI professorAI;
@@ -56,7 +57,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
-        inventoryObjectScript = FindObjectOfType<InventoryObject>();
+        inventoryObject = FindObjectOfType<InventoryObject>();
     }
 
     private void Update()
@@ -197,14 +198,14 @@ public class Player : MonoBehaviour
                     {
                         // 클릭 오브젝트의 아이템 스크립트
                         item = hit.transform.gameObject.GetComponent<Item>();
-                        for (int i = 0; i < inventoryObjectScript.slots.Length; i++)
+                        for (int i = 0; i < inventoryObject.slots.Length; i++)
                         {
-                            if (inventoryObjectScript.slots[i].active == false)
+                            if (inventoryObject.slots[i].active == false)
                             {
                                 // 오브젝트 저장 활성화
-                                inventoryObjectScript.slots[i].active = true;
+                                inventoryObject.slots[i].active = true;
                                 // 슬롯 스크립트에 클릭한 아이템 스크립트 전달
-                                inventoryObjectScript.slots[i].item = item;
+                                inventoryObject.slots[i].item = item;
 
                                 // 클릭 오브젝트 비활성화
                                 hit.transform.gameObject.SetActive(false);
@@ -236,7 +237,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            inventoryObjectScript.SlotObject.Reset();
+            inventoryObject.SlotObject.Reset();
         }
     }
 

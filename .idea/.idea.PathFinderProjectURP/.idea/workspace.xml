@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1e49c6d-6711-4935-abc2-7ac257e7be17" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Door.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Door.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PathFinderProjectURP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PathFinderProjectURP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Door.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Object/Door.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Door.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Object/Door.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Item/classKey.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Item/classKey.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Item/pathKey.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Item/pathKey.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Inventory/InventoryObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Inventory/InventoryObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Inventory/Slot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Inventory/Slot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/MainStory/Stroy/PlayerTriggerDialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/MainStory/Stroy/PlayerTriggerDialogue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Object/DoorOpen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Object/DoorOpen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Object/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Object/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Player/Player.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,7 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Door.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Object/Door.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,6 +97,7 @@
       <updated>1697361832225</updated>
       <workItem from="1697361837215" duration="5320000" />
       <workItem from="1697635386013" duration="5945000" />
+      <workItem from="1697709135090" duration="4251000" />
     </task>
     <servers />
   </component>

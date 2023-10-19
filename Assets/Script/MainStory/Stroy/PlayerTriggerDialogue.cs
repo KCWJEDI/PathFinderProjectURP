@@ -23,7 +23,35 @@ public class PlayerTriggerDialogue : MonoBehaviour
     public Transform[] keyPoints;
     public GameObject classKeyPrefab;
     public GameObject PathWayKeyPrefab;
+    
+    void KeyRandomCreate()
+    {
+        //7중 4 클래스
+        //7중 1 복도
+        //7중 2 빈방
+        int pathWayKeyPos = Random.Range(0, 6);
+        int emptyPos1 = -1;
+        int emptyPos2 = -1;
+        
+        while (emptyPos1 == pathWayKeyPos || emptyPos1 == -1)
+        {
+            emptyPos1 = Random.Range(0, 6);
+        }
+        while (emptyPos2 == pathWayKeyPos || emptyPos2 ==  emptyPos1 || emptyPos2 == -1)
+        {
+            emptyPos2 = Random.Range(0, 6);
+        }
 
+        for (int i = 0; i < keyPoints.Length; i++)
+        {
+            if (i == pathWayKeyPos)
+                Instantiate(PathWayKeyPrefab, keyPoints[i]);
+            else if (i == emptyPos1 || i == emptyPos2);
+            else
+                Instantiate(classKeyPrefab, keyPoints[i]);
+        }
+    }
+    
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Dialogue"))
@@ -53,33 +81,7 @@ public class PlayerTriggerDialogue : MonoBehaviour
                     //USBObject.SetActive(true);
                     foreach (Door dor in doors)
                         dor.lockType = DoorLockType.PathWayDoor;
-                    int classkeyCount = 0;
-                    int pathkeyCount = 0;
-                    while (classkeyCount == 4 || pathkeyCount == 1)
-                    {
-                        float cnt = Random.value * 10;
-                        if (cnt < keyPoints.Length)
-                        {
-                            if (cnt < 0.5)
-                            {
-                                if (classkeyCount <= 3 )
-                                {
-                                    classkeyCount++;
-                                    Instantiate(classKeyPrefab, keyPoints[(int)cnt]);
-                                }
-                                else continue;
-                            }
-                            else
-                            {
-                                if (pathkeyCount <= 1)
-                                {
-                                    pathkeyCount++;
-                                    Instantiate(PathWayKeyPrefab, keyPoints[(int)cnt]);
-                                }
-                                else continue;
-                            }
-                        }
-                    }
+                    KeyRandomCreate();
                     break;
             }
         collision.gameObject.SetActive(false);
