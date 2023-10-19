@@ -34,7 +34,7 @@ public class InventoryObject : MonoBehaviour
             {
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    if (slots[i].ObjectName == "열쇠")
+                    if (slots[i].ObjectName == "ClassKey")
                     {
                         //열쇠 제거하기
                         return true;
@@ -46,7 +46,7 @@ public class InventoryObject : MonoBehaviour
             {
                 foreach (var t in slots)
                 {
-                    if (t.ObjectName == "통로열쇠")
+                    if (t.ObjectName == "PathKey")
                     {
                         //열쇠 제거하기
                         return true;

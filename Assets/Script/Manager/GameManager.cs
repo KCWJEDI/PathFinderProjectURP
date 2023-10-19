@@ -12,22 +12,37 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Canvas_Pause.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Canvas_Pause.activeSelf)
-            {
-                Canvas_Pause.SetActive(false);
-                Time.timeScale = 1;
-            }
-            else
-            {
-                Canvas_Pause.SetActive(true);
-                Time.timeScale = 0;
-            }
-
+            Canvas_Pause.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
+    public void OpenOption()
+    {
+        Canvas_Option.SetActive(true);
+    }
+
+    public void OptionBack()
+    {
+        Canvas_Option.SetActive(false);
+    }
+
+    public void PauseBack()
+    {
+        Canvas_Pause.SetActive(false);
+        Time.timeScale = 1;
+    }
 
 
 

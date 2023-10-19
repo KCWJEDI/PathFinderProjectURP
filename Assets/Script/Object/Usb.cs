@@ -6,15 +6,15 @@ public class Usb : MonoBehaviour
 {
     public GameObject auraEffectObject;
 
-    private void Start()
+
+    private void OnEnable()
     {
         auraEffectObject = this.transform.GetChild(0).gameObject;
         StartCoroutine(twentySecWait());
     }
-
     IEnumerator twentySecWait()
     {
-        yield return new WaitForSecondsRealtime(20f);
+        yield return new WaitForSecondsRealtime(100f);
         auraEffectObject.SetActive(true);
     }
 }

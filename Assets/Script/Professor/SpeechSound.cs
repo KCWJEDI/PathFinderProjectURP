@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class SpeechSound : MonoBehaviour
 {
-    [SerializeField] public AudioClip[] FailSkillAudio;
-    [SerializeField] public AudioClip[] SuccessSkillAudio;
-    [SerializeField] public AudioClip[] speechAudio;
+    public AudioClip[] FailSkillAudio;
+    public AudioClip[] SuccessSkillAudio;
+    public AudioClip[] speechAudio;
+    public AudioClip[] EffectAudio;
 
 
 }

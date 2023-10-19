@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,8 +20,6 @@ public class Player : MonoBehaviour
     // 손전등
     public GameObject playerSpotLight;
 
-    // 애니메이션 커브
-    public AnimationCurve MoveCurve;
 
     // 플레이어 애니메이터
     public Animator animator;
@@ -192,7 +191,7 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 dist = Vector3.Distance(this.gameObject.transform.position, hit.transform.position);
-                if (dist < 2)
+                if (dist < 4)
                 {
                     if (hit.transform.gameObject.CompareTag("Item"))
                     {
@@ -251,18 +250,7 @@ public class Player : MonoBehaviour
             currentTime = 0;
             Rb.constraints = RigidbodyConstraints.FreezePosition;
             cabinetObject.GetComponent<BoxCollider>().isTrigger = true;
-            while (currentTime <= 0.5f)
-            {
-                yield return null;
-                currentTime += Time.deltaTime;
-                Mathf.Clamp01(currentTime);
-
-                this.transform.position = Vector3.Lerp(thisObject.position, CabinetOBJ.transform.position +
-                    new Vector3(0, this.transform.position.y, 0), MoveCurve.Evaluate(currentTime));
-
-                this.transform.rotation = Quaternion.Lerp(thisObject.rotation, 
-                    Quaternion.Euler(new Vector3(0, CabinetOBJ.transform.rotation.y, 0)), MoveCurve.Evaluate(currentTime));
-            }
+            this.transform.DOMove(CabinetOBJ.transform.position + new Vector3(0, 0.8f, 0), 1f).SetEase(Ease.InOutCubic);
             cabinetObject.GetComponent<BoxCollider>().isTrigger = false;
         }
         else
@@ -271,15 +259,9 @@ public class Player : MonoBehaviour
             Rb.constraints = ~RigidbodyConstraints.FreezePosition;
 
             cabinetObject.GetComponent<BoxCollider>().isTrigger = true;
-            while (currentTime <= 0.5f)
-            {
-                yield return null;
-                currentTime += Time.deltaTime * 0.5f;
-                Mathf.Clamp01(currentTime);
 
-                this.transform.position = Vector3.Lerp(thisObject.position, CabinetOBJ.transform.position +
-                    CabinetOBJ.transform.up * -2 + new Vector3(0, 0.75f, 0), MoveCurve.Evaluate(currentTime));
-            }
+            this.transform.DOMove(CabinetOBJ.transform.position + CabinetOBJ.transform.up * -2 + new Vector3(0, 0.8f, 0), 1f).SetEase(Ease.InOutCubic);
+            
             cabinetObject.GetComponent<BoxCollider>().isTrigger = false;
             cabinetObject.GetComponent<Cabinet>().isUse = false;
         }

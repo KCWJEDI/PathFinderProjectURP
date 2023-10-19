@@ -43,11 +43,14 @@ public class Slot : MonoBehaviour
 
     public void Reset()
     {
-        active = false;
-        ObjectName = null;
-        item = null;
-        SlotItemImage = null;
-        SlotItem.GetComponent<Image>().sprite = DefaultSlotItemImage;
+        if (ObjectName != "PhoneItem")
+        {
+            active = false;
+            ObjectName = null;
+            item = null;
+            SlotItemImage = null;
+            SlotItem.GetComponent<Image>().sprite = DefaultSlotItemImage;
+        }
     }
 
     

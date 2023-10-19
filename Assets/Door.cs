@@ -29,13 +29,13 @@ public enum DoorLockType
 public class Door : MonoBehaviour
 {
     [SerializeField] private DoorType type;
-    [SerializeField] private DoorLockType lockType;
+    [SerializeField] public DoorLockType lockType;
     [SerializeField] private Way wayType;
     [SerializeField] private GameObject doorL;
     [SerializeField] private GameObject doorR;
     [SerializeField] private Vector3 originRotationR;
     [SerializeField] private Vector3 originRotationL;
-    [SerializeField] private bool isOpen = false;
+    [SerializeField] public bool isOpen = false;
 
     private void Start()
     {
@@ -56,7 +56,9 @@ public class Door : MonoBehaviour
     
     private void OpenDoorL(Collider other)
     {
-        if (IsPlayerFront(other) || type == DoorType.Mono)
+        if (type == DoorType.Mono)
+            doorL.transform.DORotate(originRotationL + new Vector3(0, 0, -90), 0.5f, RotateMode.Fast);
+        else if (IsPlayerFront(other))
             doorL.transform.DORotate(originRotationL + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
         else
             doorL.transform.DORotate(originRotationL + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
@@ -70,14 +72,14 @@ public class Door : MonoBehaviour
     private void OpenDoorR(Collider other)
     {
         if (IsPlayerFront(other))
-            doorR.transform.DORotate(originRotationL + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
+            doorR.transform.DORotate(originRotationR + new Vector3(0,0,-90), 0.5f, RotateMode.Fast);
         else
-            doorR.transform.DORotate(originRotationL + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
+            doorR.transform.DORotate(originRotationR + new Vector3(0,0,90), 0.5f, RotateMode.Fast);
     }
     
     private void CloseDoorR()
     {
-        doorR.transform.DORotate(originRotationL, 0.5f, RotateMode.Fast);
+        doorR.transform.DORotate(originRotationR, 0.5f, RotateMode.Fast);
     }
     
     private void OnTriggerEnter(Collider other)

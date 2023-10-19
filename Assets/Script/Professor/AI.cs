@@ -14,8 +14,8 @@ public class AI : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Transform[] points;
     [SerializeField] private NavMeshAgent nvAgent;
-    [SerializeField] private AudioSource audio;
-    [SerializeField] private SpeechSound sound;
+    public AudioSource audio;
+    public SpeechSound sound;
     [SerializeField] private float speed = 2;
     [SerializeField] private float angerSpeed = 3;
     [SerializeField] private State currentState;
@@ -24,7 +24,10 @@ public class AI : MonoBehaviour
     [SerializeField] private int destPointIdx;
     [SerializeField] private GameObject auraEffect;
     [SerializeField] private Animator animator;
-    [SerializeField]private bool isplayingSound = true;
+    [SerializeField] private bool isplayingSound = true;
+
+    [SerializeField] private GameObject Canvas_AttackButton;
+    public int count = 0;
     private static readonly int MotionCount = Animator.StringToHash("MotionCount");
 
     public enum State {
@@ -54,12 +57,23 @@ public class AI : MonoBehaviour
 
         auraEffect = this.gameObject.transform.GetChild(0).GetChild(2).gameObject;
 
+            
+        this.gameObject.SetActive(false);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (currentState == State.CHASE && Vector3.Distance(playerTr.position, thisTr.position) <= 4)
         {
-            if (currentState == State.CHASE && Vector3.Distance(playerTr.position, thisTr.position) <= 4)
+            Canvas_AttackButton.SetActive(true);
+        }
+        else
+        {
+            Canvas_AttackButton.SetActive(false);
+        }
+
+        if (Canvas_AttackButton.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 AttakProfesser();
             }
@@ -99,17 +113,14 @@ public class AI : MonoBehaviour
 
     public void AttakProfesser()
     {
-        if (currentState == State.CHASE && Vector3.Distance(playerTr.position, thisTr.position) <= 4)
+        if (Random.value < 0.5)
         {
-            if (Random.value < 0.5)
-            {
-                idleTime = 0;
-                currentState = State.DAMAGED;
-            }
-            else
-            {
-                currentState = State.ANGER;
-            }
+            idleTime = 0;
+            currentState = State.DAMAGED;
+        }
+        else
+        {
+            currentState = State.ANGER;
         }
     }
 
@@ -162,7 +173,6 @@ public class AI : MonoBehaviour
                 }
                 break;
             case State.CHASE:
-                audio.Stop();
                 animator.SetInteger("MotionCount", 1);
                 nvAgent.destination = playerTr.position;
                 nvAgent.speed = speed;
@@ -236,7 +246,7 @@ public class AI : MonoBehaviour
             case State.RETURN:
                 {
                     nvAgent.speed = speed;
-                    int lastPointIdx = FindNearPointIdx();
+                    lastPointIdx = FindNearPointIdx();
                     currentState = State.PATROL;
                 }
                 break;
@@ -249,7 +259,6 @@ public class AI : MonoBehaviour
 
     IEnumerator RoopSpeech()
     {
-        int count = 0;
         while (true)
         {
             yield return new WaitForSecondsRealtime(2f);
@@ -259,7 +268,7 @@ public class AI : MonoBehaviour
             {
                 audio.clip = sound.speechAudio[count];
                 audio.Play();
-                count++;
+                count++; 
             }
             if (count >= sound.speechAudio.Length)
             {
