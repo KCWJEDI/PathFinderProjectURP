@@ -7,10 +7,10 @@ TagManager:
   - LeftDoor
   - RightDoor
   - Cabinet
-  - Item
   - Dialogue
   - Dial1
   - Professor
+  - ITEM
   layers:
   - Default
   - TransparentFX
