@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,8 +26,10 @@ public class AI : MonoBehaviour
     [SerializeField] private GameObject auraEffect;
     [SerializeField] private Animator animator;
     [SerializeField] private bool isplayingSound = true;
+    [SerializeField] private PlayerTriggerDialogue PTD;
 
     [SerializeField] private GameObject Canvas_AttackButton;
+    [SerializeField] private GameObject Canvas_GameOver;
     public int count = 0;
     private static readonly int MotionCount = Animator.StringToHash("MotionCount");
 
@@ -124,6 +127,7 @@ public class AI : MonoBehaviour
         }
     }
 
+   
     public void Routine()
     {
         switch (currentState)
@@ -173,6 +177,7 @@ public class AI : MonoBehaviour
                 }
                 break;
             case State.CHASE:
+                //audio.Stop();
                 animator.SetInteger("MotionCount", 1);
                 nvAgent.destination = playerTr.position;
                 nvAgent.speed = speed;
@@ -246,13 +251,22 @@ public class AI : MonoBehaviour
             case State.RETURN:
                 {
                     nvAgent.speed = speed;
-                    lastPointIdx = FindNearPointIdx();
+                    lastPointIdx = FindNearPointIdx() - 1;
+                    if (lastPointIdx < 0)
+                        lastPointIdx = points.Length - 1;
                     currentState = State.PATROL;
                 }
                 break;
             case State.END:
                 animator.SetInteger("MotionCount", 0);
                 nvAgent.destination = thisTr.position;
+                PTD.DialRunner.StartDialogue("AttackProfessorEnding");
+                if (PTD.DialRunner.CurrentNodeName == "AttackProfessorEnding")
+                {
+                    Canvas_GameOver.SetActive(true);
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Time.timeScale = 0;
+                }
                 break;
         }
     }

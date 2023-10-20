@@ -86,13 +86,16 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!isOpen && InventoryObject.inventoryObject.PlayerHaveKey(lockType))
-                    isOpen = true;
-            if (isOpen)
-            {
-                if (type == DoorType.Dual)
-                    OpenDoorR(other);
-                OpenDoorL(other);
+           // if (Input.GetMouseButtonDown(0))
+           // {
+                if (!isOpen && InventoryObject.inventoryObject.PlayerHaveKey(lockType))
+                        isOpen = true;
+                if (isOpen)
+                {
+                    if (type == DoorType.Dual)
+                        OpenDoorR(other);
+                    OpenDoorL(other);
+           //     }
             }
         }
         if (!other.CompareTag("Professor")) return;

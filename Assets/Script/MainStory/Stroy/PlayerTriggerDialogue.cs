@@ -10,32 +10,29 @@ enum DialNumList
     FoundUSB,
     SoundProfessor,
     FirstFloorDoorClose,
-<<<<<<< HEAD
-    LockedCCRC
-=======
     LockedCCRC,
     AfterUnLockingPath,
     SuccessEnding
->>>>>>> 40061684f2a633102a1c47ad4e654f58af9dd22c
 
 };
 
 public class PlayerTriggerDialogue : MonoBehaviour
 {
-    [Header ("CanvasList")]
+    [Header ("TriggerList")]
     public GameObject FirstFloorDoorCloseDialogue;
     public GameObject LockedCCRC;
-    [Space (0.5f)]
+    public GameObject AfterUnLockingPath;
+    public GameObject SuccessEnding;
+    [Space(0.5f)]
+
+    [Header("CanvasList")]
+    public GameObject Canvas_Success;
+    public GameObject Canvas_Timer;
+    [Space(0.5f)]
 
     [Header ("Objects")]
     public GameObject ProfessorObject;
     public GameObject USBObject;
-<<<<<<< HEAD
-=======
-    public GameObject LockedCCRC;
-    public GameObject AfterUnLockingPath;
-    public GameObject SuccessEnding;
->>>>>>> 40061684f2a633102a1c47ad4e654f58af9dd22c
     public Door[] doors;
     public Transform[] keyPoints;
     [Space (0.5f)]
@@ -104,6 +101,7 @@ public class PlayerTriggerDialogue : MonoBehaviour
                     DialRunner.StartDialogue("FirstFloorDoorClose");
                     USBObject.SetActive(true);
                     LockedCCRC.SetActive(true);
+                    Canvas_Timer.SetActive(true);
                     foreach (Door dor in doors)
                     {
                         dor.lockType = DoorLockType.PathWayDoor;
@@ -113,16 +111,18 @@ public class PlayerTriggerDialogue : MonoBehaviour
                     break;
                 case DialNumList.LockedCCRC:
                     DialRunner.StartDialogue("LockedCCRC");
-<<<<<<< HEAD
-=======
-                    AfterUnLockingPath.SetActive(true);
                     break;
                 case DialNumList.AfterUnLockingPath:
                     DialRunner.StartDialogue("AfterUnLockingPath");
                     break;
                 case DialNumList.SuccessEnding:
                     DialRunner.StartDialogue("SuccessEnding");
->>>>>>> 40061684f2a633102a1c47ad4e654f58af9dd22c
+                    if (DialRunner.CurrentNodeName == "SuccessEnding")
+                    {
+                        Canvas_Success.SetActive(true);
+                        Cursor.lockState = CursorLockMode.Confined;
+                        Time.timeScale = 0;
+                    }
                     break;
             }
             collision.gameObject.SetActive(false);

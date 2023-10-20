@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class OptionManager : MonoBehaviour
 {
-    static public float BackgroundMusic;
-    static public float EffectMusic;
+    static public float BackgroundMusic = 1;
+    static public float EffectMusic = 1;
 
     public Slider backgroundSlider;
     public Slider effectSlider;
+
+    public AudioSource ProfessorAudio;
 
     private void OnEnable()
     {
@@ -21,6 +23,8 @@ public class OptionManager : MonoBehaviour
     {
         backgroundSlider.value = BackgroundMusic;
         effectSlider.value = EffectMusic;
+
+        ProfessorAudio = GameObject.Find("ProfessorParent").GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -33,7 +37,13 @@ public class OptionManager : MonoBehaviour
     {
         BackgroundMusic = backgroundSlider.value;
         EffectMusic = effectSlider.value;
+
+        if (ProfessorAudio != null)
+        {
+            ProfessorAudio.volume = EffectMusic;
+        }
     }
+
 
 
 }

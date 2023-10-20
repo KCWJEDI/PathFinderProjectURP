@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Canvas_Pause;
     [SerializeField] private GameObject Canvas_Option;
 
+
+
+
     private void Update()
     {
         if (Canvas_Pause.activeSelf)
@@ -44,6 +47,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
 }

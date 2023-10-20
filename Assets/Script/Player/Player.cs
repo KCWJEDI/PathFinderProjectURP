@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
     // 플레이어와 오브젝트의 거리
     float dist;
 
+    private PlayerTriggerDialogue PlayerTriggerDialogueScript;
 
     public Item item;
     public Cabinet cabinet;
@@ -58,6 +60,7 @@ public class Player : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody>();
         inventoryObject = FindObjectOfType<InventoryObject>();
+        PlayerTriggerDialogueScript = GetComponent<PlayerTriggerDialogue>();
     }
 
     private void Update()
@@ -69,10 +72,6 @@ public class Player : MonoBehaviour
         // 아이템 사용
         UseItem();
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            professorAI.AttakProfesser();
-        }
     }
 
     private void FixedUpdate()
@@ -195,6 +194,18 @@ public class Player : MonoBehaviour
                 dist = Vector3.Distance(this.gameObject.transform.position, hit.transform.position);
                 if (dist < 4)
                 {
+                    if (hit.collider.gameObject.name == "usb")
+                    {
+                        PlayerTriggerDialogueScript.SuccessEnding.SetActive(true);
+                        foreach (Door dor in PlayerTriggerDialogueScript.doors)
+                        {
+                            dor.lockType = DoorLockType.None;
+                        }
+                    }
+                    if (hit.collider.gameObject.name == "NewPathKey(Clone)")
+                    {
+                        PlayerTriggerDialogueScript.AfterUnLockingPath.SetActive(true);
+                    }
                     if (hit.transform.gameObject.CompareTag("ITEM"))
                     {
                         Debug.Log("아이템 클릭 성공");
