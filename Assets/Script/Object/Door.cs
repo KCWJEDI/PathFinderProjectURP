@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Callbacks;
+using UnityEngine;
 
 public enum DoorType
 {
